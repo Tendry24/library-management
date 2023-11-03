@@ -61,7 +61,7 @@ paths:
       operationId: getAuthors
       parameters:
         - in: query
-          name: AuthorName
+          name: authorName
           description: Filter return Author by given name
           required: false
           schema:
@@ -97,9 +97,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/author'
+
+    delete:
+        tags:
+        - Authors
+        summary: Delete one author
+        operationId: deleteAuthorbyId
+        parameters:
+          - in: query
+            name: AuthorId
+            required: true
+            schema:
+              type: integer
+            description: ID of the author to delete
+        responses:
+          '200':
+            description: Author deleted successfully
+  
       
         
-  #TODO2: complete GET (can be filtered by name) - PUT - DELETE
+
 components:
   schemas:
     Book:
