@@ -47,6 +47,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+
   /authors:
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
 components:
@@ -59,8 +60,9 @@ components:
         bookName:
           type: string
         author:
-          #TODO1: set it as a component with properties : id, name, sex (M or F)
           type: string
+          items:
+           $ref: '#/components/schemas/author'
         pageNumbers:
           type: integer
         topic:
@@ -72,3 +74,20 @@ components:
         releaseDate:
           type: string
           format: date
+    #TODO1
+    author: 
+      type: object
+      properties:
+        id: 
+          type: string
+          description: id unique
+          format: uuid
+        name:
+          type: string
+          description: author's name
+        gender:
+          type: string
+          description: sex of the authors
+          enum:
+            - M
+            - F
