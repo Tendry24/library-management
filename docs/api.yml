@@ -175,3 +175,8 @@ components:
           enum:
             - M
             - F
+
+    Crupdate:
+      allOf:
+        - $ref: '#/components/schemas/Book'
+          required: 
