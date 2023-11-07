@@ -52,7 +52,6 @@ paths:
             default: 50
         
 
-
       responses:
         200:
           description: The list of filtered books
