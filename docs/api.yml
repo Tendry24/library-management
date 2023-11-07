@@ -5,6 +5,9 @@ info:
   description: STD22001
 servers:
   - url: https://library.com
+tags:
+  - Books
+  - Authors
 paths:
   /books:
     get:
@@ -22,22 +25,25 @@ paths:
             type: string
 
         - in: query
-          name: startDate
-          description: start of intervals
+          name: releaseDateMin
+          description: |
+            If  `releaseDateMax` is not provided, `releaseDateMin` is ignored.
+            `releaseDateMin` can not be after `releaseDateMax`.
           required: false
           schema:
             type: string
             format: date
         
         - in: query
-          name: endDate
-          description: end of intervals
+          name: releaseDateMax
+          description: |
+            If  `releaseDateMin` is not provided, `releaseDateMax` is ignored.
+            `releaseDateMax` can not be after `releaseDateMin`.
           required: false
           schema:
             type: string
             format: date
 
-        #TODO3: add parameter to filter books by intervals of dates of the releaseDate
       responses:
         200:
           description: The list of filtered books
@@ -79,7 +85,9 @@ paths:
       parameters:
         - in: query
           name: authorName
-          description: Filter return Author by given name
+          description: |
+            Filter returned authors by given name. 
+            If not provided, then list is not filtered.
           required: false
           schema:
             type: string
@@ -115,22 +123,26 @@ paths:
                 items:
                   $ref: '#/components/schemas/author'
 
+  /authors/{aId}:
     delete:
-        tags:
+      summary: Delete an author
+      operationId: deleteAuthor
+      tags:
         - Authors
-        summary: Delete one author
-        operationId: deleteAuthorbyId
-        parameters:
-          - in: query
-            name: AuthorId
-            required: true
-            schema:
-              type: integer
-            description: ID of the author to delete
-        responses:
-          '200':
-            description: Author deleted successfully
-  
+      parameters:
+        - name: aId
+          in: path
+          description: Author identifier to be deleted
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: The author deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/author'
       
         
 
