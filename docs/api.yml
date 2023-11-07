@@ -37,7 +37,22 @@ paths:
             type: string
             format: date
 
-        #TODO3: add parameter to filter books by intervals of dates of the releaseDate
+        - in: query
+          name: page
+          description: first page
+          schema:
+            type: integer
+            default: 1
+
+        - in: query
+          name: pageSize
+          description: last page
+          schema:
+            type: integer
+            default: 50
+        
+
+
       responses:
         200:
           description: The list of filtered books
