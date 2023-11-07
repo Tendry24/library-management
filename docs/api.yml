@@ -130,6 +130,30 @@ paths:
         responses:
           '200':
             description: Author deleted successfully
+
+  /books/{bookId}/authors/{authorId}:
+    put:
+      tags:
+        - Books
+      summary: Update the author of the book
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          description: ID of the book
+          schema:
+            type: integer
+        - name: authorId
+          in: path
+          required: true
+          description: ID of the new author
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Opération réussie
+        '404':
+          description: Livre ou auteur non trouvé
   
       
         
@@ -195,3 +219,26 @@ components:
             - pageNumbers
             - topic
             - releaseDate
+
+
+  /books/{bookId}/authors/{authorId}:
+    put:
+      summary: Modifier l'auteur d'un livre
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          description: ID du livre à modifier
+          schema:
+            type: integer
+        - name: authorId
+          in: path
+          required: true
+          description: ID du nouvel auteur
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Opération réussie
+        '404':
+          description: Livre ou auteur non trouvé
