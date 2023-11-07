@@ -179,4 +179,19 @@ components:
     Crupdate:
       allOf:
         - $ref: '#/components/schemas/Book'
-          required: 
+        - type: object
+          properties:
+            Author:
+              type: object
+              properties:
+                ID:
+                  type: integer
+                authorName:
+                  type: string
+              nullable: true
+          required:
+            - ID
+            - bookName
+            - pageNumbers
+            - topic
+            - releaseDate
