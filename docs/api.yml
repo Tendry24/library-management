@@ -60,54 +60,21 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                excelData:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      bookName:
-                        type: string
-                      author:
-                        type: string
-                      pageNumbers:
-                        type: integer
-                      topic:
-                        type: string
-                        enum:
-                          - ROMANCE
-                          - COMEDY
-                          - OTHER
-                      releaseDate:
-                        type: string
-                        format: date
-                  required:
-                    - bookName
-                    - author
-                    - pageNumbers
-                    - topic
-                    - releaseDate
+              oneOf:
+                - $ref: '#/components/schemas/Book'
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:  
+            schema:
+              type: string  
 
-                jsonData: 
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Book'
       responses:
         '200':
-          description: OK
+          description: Books imported successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse200'
-
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse400'
-
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
     put:
       tags:
         - "Books"
@@ -235,6 +202,33 @@ paths:
           description: Opération réussie
         '404':
           description: Livre ou auteur non trouvé
+
+  /authors/import:
+    post:
+      tags:
+        - "Authors"
+      summary: Import authors from Excel or JSON
+      operationId: importAuthors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/author'
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+            schema:
+              type: string  
+
+      responses:
+        '200':
+          description: Authors imported successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/author'
   
       
         
@@ -263,6 +257,7 @@ components:
         releaseDate:
           type: string
           format: date
+
     #TODO1
     author: 
       type: object
