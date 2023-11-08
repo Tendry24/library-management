@@ -51,14 +51,20 @@ paths:
         
 
       responses:
-        200:
-          description: The list of filtered books
+        '200':
+          description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/ApiResponse200'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+
     put:
       tags:
         - "Books"
@@ -72,14 +78,20 @@ paths:
               items:
                 $ref: '#/components/schemas/Book'
       responses:
-        200:
-          description: The list of created or updated books
+        '200':
+          description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/ApiResponse200'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+
 
   /authors:
     get:
@@ -95,15 +107,23 @@ paths:
           required: false
           schema:
             type: string
+        - $ref: "#/components/parameters/queryPagination"
+            
       responses:
-        200:
-          description: The list of filtered author
+        '200':
+          description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/author'
+                $ref: '#/components/schemas/ApiResponse200'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+
 
     put: 
       tags:
@@ -118,14 +138,20 @@ paths:
               items:
                 $ref: '#/components/schemas/author'
       responses:
-        200:
-          description: The list of created or updated Author
+        '200':
+          description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/author'
+                $ref: '#/components/schemas/ApiResponse200'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+
 
     delete:
         tags:
@@ -231,18 +257,82 @@ components:
             - pageNumbers
             - topic
             - releaseDate
-
-    Exception:
+    
+    ApiResponse:
       type: object
       properties:
         status:
-          type: string
-        message:
-          type: string
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+        body:
+          type: object
 
-    responses:
+    ApiResponse200:
       allOf:
-       - $ref: "#/components/schemas/Exception"
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            specificProperty200:
+              type: string
+
+    ApiResponse400:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            specificProperty400:
+              type: string
+
+    ApiResponse403:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            specificProperty403:
+              type: string
+
+    ApiResponse500:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            specificProperty500:
+              type: string
+
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse200'
+
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse400'
+
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse403'
+
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse500'
+
+
       
       
 
