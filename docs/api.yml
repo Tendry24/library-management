@@ -49,7 +49,50 @@ paths:
 
         - $ref: "#/components/parameters/pathPagination"
         
+  /books/import:
+    post:
+      tags:
+        - "Books"
+      summary: Import books from Excel or JSON
+      operationId: importBooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                excelData:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      bookName:
+                        type: string
+                      author:
+                        type: string
+                      pageNumbers:
+                        type: integer
+                      topic:
+                        type: string
+                        enum:
+                          - ROMANCE
+                          - COMEDY
+                          - OTHER
+                      releaseDate:
+                        type: string
+                        format: date
+                  required:
+                    - bookName
+                    - author
+                    - pageNumbers
+                    - topic
+                    - releaseDate
 
+                jsonData: 
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Book'
       responses:
         '200':
           description: OK
