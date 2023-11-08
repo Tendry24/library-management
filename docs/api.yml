@@ -48,7 +48,20 @@ paths:
         - $ref: "#/components/parameters/queryPagination"
 
         - $ref: "#/components/parameters/pathPagination"
-        
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse200'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
   /books/import:
     post:
       tags:
@@ -68,13 +81,18 @@ paths:
 
       responses:
         '200':
-          description: Books imported successfully
+          description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/ApiResponse200'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
     put:
       tags:
         - "Books"
