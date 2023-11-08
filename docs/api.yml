@@ -2,7 +2,7 @@
 openapi: 3.0.3
 info:
   title: Library API
-  version: 1.1.0
+  version: 1.2.0
   description: STD22001
 servers:
   - url: https://library.com
@@ -45,19 +45,9 @@ paths:
             type: string
             format: date
 
-        - in: query
-          name: page
-          description: first page
-          schema:
-            type: integer
-            default: 1
+        - $ref: "#/components/parameters/queryPagination"
 
-        - in: query
-          name: pageSize
-          description: last page
-          schema:
-            type: integer
-            default: 50
+        - $ref: "#/components/parameters/pathPagination"
         
 
       responses:
@@ -242,25 +232,35 @@ components:
             - topic
             - releaseDate
 
+    Exception:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
 
-  /books/{bookId}/authors/{authorId}:
-    put:
-      summary: Modifier l'auteur d'un livre
-      parameters:
-        - name: bookId
-          in: path
-          required: true
-          description: ID du livre à modifier
-          schema:
-            type: integer
-        - name: authorId
-          in: path
-          required: true
-          description: ID du nouvel auteur
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Opération réussie
-        '404':
-          description: Livre ou auteur non trouvé
+    responses:
+      allOf:
+       - $ref: "#/components/schemas/Exception"
+      
+      
+
+
+  parameters:
+    queryPagination:
+      name: Page        
+      in: query
+      description: Filter return books 
+      required: false
+      schema:
+        type: integer
+
+      
+    pathPagination:
+      name: pageSize
+      in: path
+      description: Filter return books
+      required: true
+      schema: 
+        type: integer
