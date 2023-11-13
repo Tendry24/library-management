@@ -54,14 +54,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse200'
+                $ref: '#/components/schemas/Book'
 
         '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse400'
+                $ref: '#/components/schemas/Book'
   /books/import:
     post:
       tags:
@@ -143,14 +143,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse200'
+                $ref: '#/components/schemas/Book'
 
         '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse400'
+                $ref: '#/components/schemas/Book'
 
 
     put: 
@@ -171,14 +171,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse200'
+                $ref: '#/components/schemas/author'
 
         '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse400'
+                $ref: '#/components/schemas/author'
 
 
     delete:
